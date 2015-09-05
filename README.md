@@ -7,7 +7,9 @@ mybatis逆向工程
 	2.生成的*mapper.xml文件中每个元素间增加一空行，如insert,update,delete等之间增加一空行      
 	3.去掉*mapper.xml文件中生成的注释      
 	4.根据数据库表名及字段的注释为Java类、属性增加注释，可以在源码org.mybatis.generator.internal.db.DatabaseIntrospector.java类中根据个人情况进行修改    
-	5.实现每次生成都覆盖生成文件     
+	5.实现每次生成都覆盖生成文件   
+	
+以上修改只对mysql5.6和oracle11.2.0测试通过，其他版本未进行测试
 
 使用方式：     
 	1.在generatorConfig.xml中配置mapper生成的详细信息，如下：    
