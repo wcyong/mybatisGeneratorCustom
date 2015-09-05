@@ -3,48 +3,64 @@
 <mapper namespace="org.wcy.gen.mapper.TNotificationTemplateMapper" >
 
     <resultMap id="BaseResultMap" type="org.wcy.gen.model.TNotificationTemplate" >
-        <result column="ID" property="id" jdbcType="DECIMAL" />
-        <result column="NAME" property="name" jdbcType="VARCHAR" />
-        <result column="SYSTEM" property="system" jdbcType="VARCHAR" />
-        <result column="TITLE" property="title" jdbcType="VARCHAR" />
-        <result column="TEMPLATE" property="template" jdbcType="VARCHAR" />
-        <result column="DELETED" property="deleted" jdbcType="DECIMAL" />
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="system" property="system" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="template" property="template" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="BIT" />
     </resultMap>
 
+    <sql id="Base_Column_List" >
+        id, name, system, title, template, deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_notification_template
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from t_notification_template
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
     <insert id="insert" parameterType="org.wcy.gen.model.TNotificationTemplate" >
-        insert into T_NOTIFICATION_TEMPLATE (ID, NAME, SYSTEM, 
-            TITLE, TEMPLATE, DELETED
+        insert into t_notification_template (id, name, system, 
+            title, template, deleted
             )
-        values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{system,jdbcType=VARCHAR}, 
-            #{title,jdbcType=VARCHAR}, #{template,jdbcType=VARCHAR}, #{deleted,jdbcType=DECIMAL}
+        values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{system,jdbcType=VARCHAR}, 
+            #{title,jdbcType=VARCHAR}, #{template,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}
             )
     </insert>
 
     <insert id="insertSelective" parameterType="org.wcy.gen.model.TNotificationTemplate" >
-        insert into T_NOTIFICATION_TEMPLATE
+        insert into t_notification_template
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
-                ID,
+                id,
             </if>
             <if test="name != null" >
-                NAME,
+                name,
             </if>
             <if test="system != null" >
-                SYSTEM,
+                system,
             </if>
             <if test="title != null" >
-                TITLE,
+                title,
             </if>
             <if test="template != null" >
-                TEMPLATE,
+                template,
             </if>
             <if test="deleted != null" >
-                DELETED,
+                deleted,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
-                #{id,jdbcType=DECIMAL},
+                #{id,jdbcType=BIGINT},
             </if>
             <if test="name != null" >
                 #{name,jdbcType=VARCHAR},
@@ -59,8 +75,40 @@
                 #{template,jdbcType=VARCHAR},
             </if>
             <if test="deleted != null" >
-                #{deleted,jdbcType=DECIMAL},
+                #{deleted,jdbcType=BIT},
             </if>
         </trim>
     </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="org.wcy.gen.model.TNotificationTemplate" >
+        update t_notification_template
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="system != null" >
+                system = #{system,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="template != null" >
+                template = #{template,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="org.wcy.gen.model.TNotificationTemplate" >
+        update t_notification_template
+        set name = #{name,jdbcType=VARCHAR},
+            system = #{system,jdbcType=VARCHAR},
+            title = #{title,jdbcType=VARCHAR},
+            template = #{template,jdbcType=VARCHAR},
+            deleted = #{deleted,jdbcType=BIT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>
